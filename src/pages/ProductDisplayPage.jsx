@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createElement } from 'react'
 import Navbar from "../components/Navbar.jsx";
 import Carousel from '../components/Carousel.jsx';
+import ProductDetailBlock from '../components/ProductDetailBlock.jsx';
 
 // below imports are for accordion
 import Accordion from '@mui/material/Accordion';
@@ -26,7 +27,7 @@ function ProductDisplayPage() {
             }
         })();
     }, []);
-    console.log(data[0]);
+    console.log(data);
 
     function extra_details_parser() {
         // if (data[0]?.extra_details_object.hasOwnProperty('General')) {
@@ -121,7 +122,9 @@ function ProductDisplayPage() {
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography component='div' sx={{ fontFamily: "Montserrat" }}>
-                                {/* {extra_details_parser()} */}
+                                {
+                                    <ProductDetailBlock detailBlockObject={data[0]?.extra_details_array[0]}  />
+                                }
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
