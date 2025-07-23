@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createElement } from 'react'
 import Navbar from "../components/Navbar.jsx";
 import Carousel from '../components/Carousel.jsx';
-import ProductDetailBlock from '../components/ProductDetailBlock.jsx';
 
 // below imports are for accordion
 import Accordion from '@mui/material/Accordion';
@@ -27,55 +26,37 @@ function ProductDisplayPage() {
             }
         })();
     }, []);
-    console.log(data);
+    // console.log(data);    
 
-    function extra_details_parser() {
-        // if (data[0]?.extra_details_object.hasOwnProperty('General')) {
+    const finalDataBlockArray = [];
+    function detailBlockCreatorFunc(detailBlockObject) {
 
-        //     // for()
-        // }
+        const arr = [];
+        for (const key in detailBlockObject) {
+            const mainDataArr = [];
 
-        const divEl = document.createElement('div');
-        const childDivEl = document.createElement('div');
-        const childPara1 = document.createElement('p');
-        const childPara2 = document.createElement('p');
-        const hOneEl = document.createElement('h1');
-        const hrEl = document.createElement('hr'); 
-        
-        hOneEl.innerText = 'General';
-        hOneEl.className = 'font-bold mb-2';
+            for (const innerKey in detailBlockObject[key]) {
+                mainDataArr.push(
+                    <div key={innerKey} className='flex justify-between mb-3'>
+                        <p className='text-gray-400 text-sm w-[30%]'>{innerKey}</p>
+                        <p className='break-words font-medium text-sm w-[60%] '>{detailBlockObject[key][innerKey]}</p>
+                    </div>
+                );
+            }
 
-        childDivEl.className = 'flex justify-between';
-        childPara1.className = 'text-gray-400 text-sm w-[30%]';
-        childPara1.innerText = 'Not covered in warranty';
-        childPara2.className = 'font-bold text-sm w-[60%] break-all';
-        childPara2.innerText = 'Contact - productfeedback@nexxbase.com | support.gonoise.com | +91 8882132132';
-        hrEl.className = 'mt-4 opacity-50';
+            arr.push(
+                <div key={key}>
+                    <h1 className='font-bold mb-4'>{key}</h1>
+                    {mainDataArr}
+                    <hr className='mt-4 opacity-25 mb-5' />
+                </div>
+            );
+        }
 
-        
-        childDivEl.appendChild(childPara1);
-        childDivEl.appendChild(childPara2);
-        
-        divEl.appendChild(hOneEl);
-        divEl.appendChild(childDivEl);
-        divEl.appendChild(hrEl);
-
-
-
-
-
-        // <div>
-        //     <h1 className='font-bold mb-2'>General</h1>
-        //     <div className='flex justify-between'>
-        //         <p className='text-gray-400 text-sm w-[30%]'>Not covered in warranty</p>
-        //         <p className='font-bold text-sm w-[60%] break-all'>Contact - productfeedback@nexxbase.com | support.gonoise.com | +91 8882132132</p>
-        //     </div>
-        //     <hr className='mt-4 opacity-50' />
-        // </div>
-        
-
-        return divEl;
+        return arr;
     }
+    data[0]?.extra_details_array.forEach(element => finalDataBlockArray.push(detailBlockCreatorFunc(element)));
+
 
 
     // below code is for the price formatter
@@ -122,21 +103,12 @@ function ProductDisplayPage() {
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography component='div' sx={{ fontFamily: "Montserrat" }}>
-                                {
-                                    <ProductDetailBlock detailBlockObject={data[0]?.extra_details_array[0]}  />
-                                }
+                                {finalDataBlockArray}
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
                 </div>
-
-                <div className='bg-green-900 h-[150px]'></div>
-                <div className='bg-purple-900 h-[150px]'></div>
-                <div className='bg-pink-900 h-[150px]'></div>
-
             </div>
-
-            <div className='text-blue-800 text-center h-[150px]'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore ex quidem nemo nam! Quae nulla rerum quas eius ducimus iste quis reprehenderit, id beatae mollitia consectetur a recusandae labore minima.</div>
         </>
     )
 }
