@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useState, useRef } from 'react'
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -9,6 +9,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
+
 
 // import required modules
 import { Pagination, Navigation, FreeMode, Thumbs } from 'swiper/modules';
@@ -39,49 +40,38 @@ import { Pagination, Navigation, FreeMode, Thumbs } from 'swiper/modules';
 // }
 
 function Carousel({ data }) {
-    const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const swiperRef = useRef();
 
     return (
         <>
-
             <Swiper
-                // style={{
-                //     '--swiper-navigation-color': '#fff',
-                //     '--swiper-pagination-color': '#fff',
-                // }}
                 speed={0}
                 slidesPerView={1}
                 spaceBetween={10}
                 loop={true}
-                // pagination={{
-                //     clickable: true,
-                // }}
-                navigation={false}
-                modules={[FreeMode, Navigation, Thumbs]}
-                thumbs={{ swiper: thumbsSwiper }}
                 className={`h-[450px] bg-white`}
+                allowTouchMove={false}                
+                onSwiper={(swiper) => {
+                    swiperRef.current = swiper;
+                }}
             >
                 {data[0]?.images.map((cur, index) => (
                     <SwiperSlide key={index}> <img src={cur} className='p-2' alt="" /> </SwiperSlide>
                 ))}
+                
             </Swiper>
             <Swiper
                 style={{
-                    width:'500px',
+                    width: '500px',
                     cursor: "pointer"
                 }}
-                onTouchMove={setThumbsSwiper}
-                onSwiper={setThumbsSwiper}
                 loop={true}
                 spaceBetween={10}
                 slidesPerView={4}
                 freeMode={true}
-                watchSlidesProgress={true}
-                modules={[FreeMode, Navigation, Thumbs]}
-                className=""
             >
-                {data[0]?.images.map((cur, index) => (
-                    <SwiperSlide key={index}> <img src={cur} className='p-2' alt="" /> </SwiperSlide>
+                {data[0]?.images.map((curr, ind) => (
+                    <SwiperSlide onMouseEnter={(e) => swiperRef.current.slideTo(ind) } key={ind}> <img src={curr} className='p-2' alt="" /> </SwiperSlide>
                 ))}
             </Swiper>
         </>
