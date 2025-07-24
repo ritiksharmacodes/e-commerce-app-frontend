@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createElement } from 'react'
-import Navbar from "../components/Navbar.jsx";
+import Navbar from "../components/header/Navbar.jsx";
 import Carousel from '../components/Carousel.jsx';
 
 // below imports are for accordion

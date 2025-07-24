@@ -9,7 +9,7 @@ function Navbar({ props }) {
     const nameOfUser = `Ritik`;
     return (
         <>
-            <nav className={`bg-white px-3 py-4 flex justify-between md:px-7 ${props} md:shadow-xl`}>
+            <nav className={`bg-white px-3 py-4 flex justify-between md:px-7 ${props}`}>
                 <div className='flex items-center gap-5'>
                     <RxHamburgerMenu className='text-4xl md:hidden' />
                     <h1 className='text-2xl font-bold'>e-comm</h1>
@@ -50,12 +50,17 @@ function Navbar({ props }) {
             </nav>
 
             {/* below; search bar for mobile screens */}
-            <div className='flex shadow-xl relative h-[50px] md:hidden px-3'>
-                <input placeholder='Search product' className='w-full p-4 outline-blue-400' type="text" />
-                <div className='bg-blue-400 absolute right-[14px] top-[2px] rounded-lg p-2 cursor-pointer'>
-                    <CiSearch className='text-3xl text-white' />
+            <div>
+                <hr className='mt-1 mb-2 md:mb-0' />
+                <div className='flex relative h-[50px] md:hidden px-3'>
+                    <input placeholder='Search product' className='w-full p-4 outline-blue-400' type="text" />
+                    <div className='bg-blue-400 absolute right-[14px] top-[2px] rounded-lg p-2 cursor-pointer'>
+                        <CiSearch className='text-3xl text-white' />
+                    </div>
                 </div>
+                <hr className='md:hidden mt-2' />
             </div>
+
         </>
     )
 }
