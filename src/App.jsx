@@ -5,14 +5,15 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, R
 
 import ProductDisplayPage from './pages/ProductDisplayPage.jsx';
 import RootLayout from './components/layouts/rootLayout.jsx';
-
-const addressOfTheServer = 'http://localhost:5050';
+import HomePage from './pages/HomePage.jsx';
 
 const router = createBrowserRouter(createRoutesFromElements(
+
   <Route path='/' element={<RootLayout />}>
-    <Route index />
-    <Route path='*'  />
+    <Route index element={<HomePage />} />
+    <Route path='*' />
   </Route>
+
 ));
 
 function App() {

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, createElement } from 'react'
-import Navbar from "../components/header/Navbar.jsx";
 import Carousel from '../components/Carousel.jsx';
 
 // below imports are for accordion
@@ -80,7 +79,6 @@ function ProductDisplayPage() {
     return (
         <>
             <div className=''>
-                <Navbar />
                 <Carousel data={data} />
 
                 <div className='flex justify-center items-center gap-2 p-2'>
