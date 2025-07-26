@@ -6,36 +6,17 @@ import { CiUser } from "react-icons/ci";
 import SideBar from '../SideBar';
 
 
-
-import { IoCloseCircle } from "react-icons/io5";
-
-
-
-function Navbar({ props }) {
-
+function Navbar({ props }) {  
+    const nameOfUser = `Ritik`;
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-
-    const nameOfUser = `Ritik`;
     return (
         <>
             <nav className={`bg-white px-3 py-4 flex justify-between md:px-7 ${props}`}>
-                <div className='flex items-center gap-5'>                   
-
-                    <div id='sidebar-1' className={`absolute top-0 left-0 w-full flex h-full z-99999 transition-transform duration-300 ease-in-out ${ isSidebarOpen === true ? 'translate-x-0' : '-translate-x-full' }`}>
-                        <div className='w-[80%] bg-white h-full shadow-2xl p-4'>
-                            <h1>adad</h1>
-                            <h1>adad</h1>
-                            <h1>adad</h1>
-                            <h1>adad</h1>
-                        </div>
-                        <div onClick={() => { }} className='bg-[#00000071] w-[20%] h-full flex justify-center'>
-                            <IoCloseCircle onClick={() => setIsSidebarOpen(false)} className='text-5xl mt-11 text-white' />
-                        </div>
-                    </div>
-
+                <div className='flex items-center gap-5'>
+                    <SideBar isSidebarOpenState={isSidebarOpen} setIsSidebarOpenFunc={ setIsSidebarOpen } />
                     <RxHamburgerMenu onClick={() => setIsSidebarOpen(true)} className='text-4xl md:hidden' />
-                    <h1 className='text-2xl font-bold'>e-comm</h1>
+                    <h1 className='font-bold'>e-comm</h1>
                 </div>
 
                 {/* <div className='hidden font-bold md:flex md:items-center md:[&>*]:px-3'>
