@@ -6,15 +6,15 @@ import { CiUser } from "react-icons/ci";
 import SideBar from '../SideBar';
 
 
-function Navbar({ props }) {  
+function Navbar({ props }) {
     const nameOfUser = `Ritik`;
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
         <>
+        <SideBar isSidebarOpenState={isSidebarOpen} setIsSidebarOpenFunc={ setIsSidebarOpen } />
             <nav className={`bg-white px-3 py-4 flex justify-between md:px-7 ${props}`}>
                 <div className='flex items-center gap-5'>
-                    <SideBar isSidebarOpenState={isSidebarOpen} setIsSidebarOpenFunc={ setIsSidebarOpen } />
                     <RxHamburgerMenu onClick={() => setIsSidebarOpen(true)} className='text-4xl md:hidden' />
                     <h1 className='font-bold'>e-comm</h1>
                 </div>

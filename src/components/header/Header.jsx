@@ -5,7 +5,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 
 function Header() {
     return (
-        <>
+        <div>
             <Navbar />
 
             <nav className='hidden md:flex px-5 shadow-xl gap-4'>
@@ -23,7 +23,7 @@ function Header() {
                     <div className='mt-[-5px]'>category</div>
                 </NavLink>
             </nav>
-        </>
+        </div>
     )
 }
 
