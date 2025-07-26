@@ -1,3 +1,7 @@
+.swiper-pagination {
+    position: static;
+}
+
 .swiper-pagination-bullet {
     width: 15px;
     height: 4px;

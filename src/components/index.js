@@ -4,6 +4,7 @@ import Footer from "./footer/Footer";
 import FirstLayout from "./layouts/FirstLayout";
 import FrontPageAdvertismentBanner from "./frontPageAdvertismentBanner/FrontPageAdvertismentBanner";
 import StillLookingForThese from "./features/StillLookingForThese";
+import SideBar from "./SideBar";
 
 export {
     Navbar,
@@ -11,5 +12,6 @@ export {
     Footer,
     FirstLayout,
     FrontPageAdvertismentBanner,
-    StillLookingForThese
+    StillLookingForThese,
+    SideBar
 };
