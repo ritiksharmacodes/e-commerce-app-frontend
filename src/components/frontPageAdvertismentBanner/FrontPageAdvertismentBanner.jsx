@@ -28,7 +28,7 @@ function FrontPageAdvertismentBanner() {
                 loop={true}
                 modules={[Autoplay, Pagination]}
                 watchSlidesProgress={true}
-                className="bg-none mt-4 h-[220px]"
+                className="bg-none mt-4 h-[30vh]"
             >
                 <SwiperSlide className='h-[200px] px-3'><img className='rounded-2xl' src="https://rukminim2.flixcart.com/fk-p-flap/960/460/image/86479984fadf938d.jpeg?q=60" alt="" /></SwiperSlide>
                 <SwiperSlide className='h-[200px] px-3'><img className='rounded-2xl' src="https://rukminim2.flixcart.com/fk-p-flap/960/460/image/86479984fadf938d.jpeg?q=60" alt="" /></SwiperSlide>
