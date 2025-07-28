@@ -10,7 +10,7 @@ function SignIn() {
                 <p className='text-xl font-bold'>e-comm</p>
             </div>
 
-            <div className='p-4 mt-3 flex flex-col gap-5'>
+            <div className='p-4 mt-3 flex flex-col gap-7'>
                 <p className='capitalize text-2xl font-bold'>welcome back</p>
                 <div className='text-sm'>
                     <p className='capitalize inline-block mr-1'>don't have an account?</p>
