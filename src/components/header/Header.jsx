@@ -18,7 +18,7 @@ function Header() {
 
             {/* below is for mobile screens */}
             <nav className='md:hidden px-3 py-2 shadow-xl'>
-                <NavLink to="/signin" className={`capitalize active:text-gray-500`}>
+                <NavLink to="/..." className={`capitalize active:text-gray-500`}>
                     <div className='text-[0.78rem]'>shop by</div>
                     <div className='mt-[-5px]'>category</div>
                 </NavLink>
