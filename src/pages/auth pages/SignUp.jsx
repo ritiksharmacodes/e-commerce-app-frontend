@@ -30,15 +30,15 @@ function SignUp() {
             const res = await fetch(`${environmentVars.address_of_the_server}/${environmentVars.api_version}/auth/signup`, {
                 method: 'POST',
                 mode: 'cors',
+                credentials: 'include',
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(form_data)
+                body: JSON.stringify(form_data),
             });
             const res_json = await res.json();
 
             console.log(res_json);
-            
 
             if( res_json.name === 'error' && res_json.code === '23505' && res_json.constraint === 'users_username_key' ) {
                 console.log('Username already exists');
