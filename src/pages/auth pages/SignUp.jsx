@@ -27,6 +27,7 @@ function SignUp() {
     const signup_handler = async (form_data) => {
         try {
             setIsLoading(true);
+            
             const res = await fetch(`${environmentVars.address_of_the_server}/${environmentVars.api_version}/auth/signup`, {
                 method: 'POST',
                 mode: 'cors',
@@ -46,8 +47,6 @@ function SignUp() {
             if( res_json.name === 'error' && res_json.code === '23505' && res_json.constraint === 'users_email_key' ) {
                 console.log('Email already exists');
             }
-            
-            
 
             setIsLoading(false);
         } catch (error) {
