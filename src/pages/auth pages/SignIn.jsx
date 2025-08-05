@@ -11,13 +11,18 @@ import environmentVars from "../../conf.js";
 
 function SignIn() {
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit } = useForm({
+        defaultValues: {
+            email: "",
+            password: ""
+        }
+    });
     const [isLoading, setIsLoading] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     const googleOauthLogin = useGoogleLogin({
         onSuccess: async code => {
-            try {                
+            try {
                 const res = await fetch(`${environmentVars.address_of_the_server}/${environmentVars.api_version}/auth/signin`, {
                     method: "POST",
                     mode: "cors",
@@ -30,7 +35,7 @@ function SignIn() {
                 const json_res = await res.json();
 
                 console.log(json_res);
-                
+
             } catch (error) {
                 console.log(error);
             }
@@ -45,6 +50,30 @@ function SignIn() {
             document.body.classList.remove("overflow-y-hidden");
         }
     }, [isLoading]);
+
+    const signin_handler = async (data) => {
+        try {
+            data.auth_provider = "local";
+            const res = await fetch(`${environmentVars.address_of_the_server}/${environmentVars.api_version}/auth/signin`, {
+                method: "POST",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                    'Content-Type' : "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+            const res_json = await res.json();
+            
+            console.log(res_json);
+            
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const err_signin_handler = (err) => {
+        console.log(err);
+    };
 
     return (
         <>
@@ -65,12 +94,18 @@ function SignIn() {
                             <Link className='font-bold underline' to={'/signup'}>Create an account </Link>
                         </div>
 
-                        <form className='flex flex-col gap-7'>
+                        <form onSubmit={handleSubmit(signin_handler, err_signin_handler)} className='flex flex-col gap-7'>
                             <div className=''>
-                                <input className='p-4 rounded-lg border-1 w-full' type="email" placeholder='Email' />
+                                <input autoComplete="off" className='p-4 rounded-lg border-1 w-full' type="email" placeholder='Email' {...register("email", {
+                                    required: true,
+                                    validate: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                                        "Email address must be a valid address"
+                                })} />
                             </div>
                             <div className='relative'>
-                                <input className='p-4 rounded-lg border-1 w-full' type={`${!isPasswordVisible ? "password" : "text"}`} placeholder='Password' />
+                                <input autoComplete="off" className='p-4 rounded-lg border-1 w-full' type={`${!isPasswordVisible ? "password" : "text"}`} placeholder='Password' {...register("password", {
+                                    required: true
+                                })} />
                                 {!isPasswordVisible ? <FaRegEye onClick={() => setIsPasswordVisible(true)} className='text-2xl absolute right-0 top-[50%] translate-[-50%]' /> : <FaRegEyeSlash onClick={() => setIsPasswordVisible(false)} className='text-2xl absolute right-0 top-[50%] translate-[-50%]' />}
                             </div>
                             <button className='bg-blue-400 rounded-md text-white font-semibold py-3' type="submit">Sign In</button>
