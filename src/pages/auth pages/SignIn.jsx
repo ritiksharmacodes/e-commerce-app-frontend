@@ -6,6 +6,8 @@ import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaGoogle } from "react-icons/fa";
 import { useGoogleLogin } from '@react-oauth/google';
 import signinpgDefaultBg from "../../assets/signin pg bg.jpg";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 import environmentVars from "../../conf.js";
 
 
@@ -19,10 +21,16 @@ function SignIn() {
     });
     const [isLoading, setIsLoading] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [errorInGoogleLogin, setErrorInGoogleLogin] = useState({
+        error: false,
+        message: ""
+    });
 
     const googleOauthLogin = useGoogleLogin({
         onSuccess: async code => {
             try {
+                setIsLoading(true);
+
                 const res = await fetch(`${environmentVars.address_of_the_server}/${environmentVars.api_version}/auth/signin`, {
                     method: "POST",
                     mode: "cors",
@@ -34,7 +42,21 @@ function SignIn() {
                 });
                 const json_res = await res.json();
 
-                console.log(json_res);
+                setIsLoading(false);
+                
+                if (json_res.constraint === "users_email_key" && json_res.code === '23505') {
+                    // user already exists. No need to login with google
+                    setErrorInGoogleLogin({
+                        error: true,
+                        message: "Cannot login with google. Try other ways"
+                    });
+                }
+
+                if(json_res.result === "success")
+                {
+                    console.log(json_res);
+                }
+
 
             } catch (error) {
                 console.log(error);
@@ -59,14 +81,15 @@ function SignIn() {
                 mode: "cors",
                 credentials: "include",
                 headers: {
-                    'Content-Type' : "application/json"
+                    'Content-Type': "application/json"
                 },
                 body: JSON.stringify(data)
             });
             const res_json = await res.json();
-            
+
+
             console.log(res_json);
-            
+
         } catch (error) {
             console.log(error);
         }
@@ -114,6 +137,11 @@ function SignIn() {
                                 <p className='absolute px-4 bg-white top-1/2 left-1/2 -translate-1/2 text-nowrap font-bold'>or continue with</p>
                             </div>
                         </form>
+
+                        <div className={`${ errorInGoogleLogin.error === true ? "block" : "hidden" } flex gap-3 font-bold`}>
+                            <p className='text-red-600'>Error: </p>
+                            <p className='break-words'>{errorInGoogleLogin.message || "error_message"}</p>
+                        </div>
 
                         <div onClick={() => googleOauthLogin()} className='rounded-md text-black font-semibold py-3 border-1 flex justify-center items-center gap-2'>
                             <FaGoogle />
